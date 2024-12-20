@@ -39,22 +39,25 @@ def count_robots(i0, i1, j0, j1):
     return ans
 
 
-seen = {}
-step = 0
-while True:
-    picture = [["  "] * (m) for _ in range(n)]
-    for i, j in p:
-        picture[i][j] = "##"
+with open("test.txt","w") as out:
+    seen = {}
+    step = 0
+    while True:
+        # if step % 1000 == 0:
+        out.write(f"Step {step}")
+        picture = [[" "] * (m//2+1) for _ in range(n//4+1)]
+        for i, j in p:
+            picture[i//4][j//2] = "#"
 
-    picture = "\n".join(["".join(line) for line in picture])
-    if picture in seen:
-        print(f"Saw this picture at step {seen[picture]}, stopping...")
-        break
-    seen[picture] = step
+        picture = "\n".join(["".join(line) for line in picture])
+        if picture in seen:
+            out.write(f"Saw this picture at step {seen[picture]}, stopping...")
+            break
+        seen[picture] = step
 
-    print(picture)
-    print("\n" * 2)
-    
-    update()
+        out.write(picture)
+        out.write("\n" * 2)
+        
+        update()
 
-    step += 1
+        step += 1
